@@ -1,6 +1,10 @@
 package com.dave_devs.real_timecountrydata.di
 
+import android.app.Application
+import androidx.room.Room
 import com.dave_devs.real_timecountrydata.core.Constants.BASE_URL
+import com.dave_devs.real_timecountrydata.core.Constants.COUNTRY_DATABASE
+import com.dave_devs.real_timecountrydata.data.local.CountryDataDatabase
 import com.dave_devs.real_timecountrydata.data.remote.CountryApi
 import com.dave_devs.real_timecountrydata.data.repository.CountryDataRepoImpl
 import com.dave_devs.real_timecountrydata.domain.repository.CountryDataRepository
@@ -29,8 +33,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCountryDataRepository(api: CountryApi): CountryDataRepository {
-        return CountryDataRepoImpl(api)
+    fun provideCountryDatabase(app: Application): CountryDataDatabase {
+        return Room.databaseBuilder(
+            app,
+            CountryDataDatabase::class.java,
+            COUNTRY_DATABASE
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCountryDataRepository(api: CountryApi, db: CountryDataDatabase): CountryDataRepository {
+        return CountryDataRepoImpl(api, db.dao())
     }
 
     @Provides

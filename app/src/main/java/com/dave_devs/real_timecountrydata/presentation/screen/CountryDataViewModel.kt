@@ -1,9 +1,10 @@
-package com.dave_devs.real_timecountrydata.presentation
+package com.dave_devs.real_timecountrydata.presentation.screen
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dave_devs.real_timecountrydata.core.Constants.DELAY_MILLIS
 import com.dave_devs.real_timecountrydata.domain.use_case.GetCountryDataUseCase
 import com.dave_devs.real_timecountrydata.domain.util.Resource
 import kotlinx.coroutines.Job
@@ -34,29 +35,31 @@ class CountryDataViewModel @Inject constructor(
         _searchQuery.value = name
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(500L)
+            delay(DELAY_MILLIS)
             getCountryDataUseCase(name).onEach { result->
               when(result) {
                   is Resource.Success -> {
                       _uiState.value = uiState.value.copy(
-                         countryData = result.data?: emptyList(),
+                         countryDataItems = result.data?: emptyList(),
                           isLoading = false
                       )
                   }
                   is Resource.Loading -> {
                       _uiState.value = uiState.value.copy(
                           isLoading = true,
-                          countryData = result.data?: emptyList()
+                          countryDataItems = result.data?: emptyList()
                       )
                   }
                   is Resource.Error -> {
                       _uiState.value = uiState.value.copy(
-                          countryData = result.data?: emptyList(),
+                          countryDataItems = result.data?: emptyList(),
                           isLoading = false
                       )
-                      _eventFlow.emit(UiEvent.ShowSnackBar(
-                          message = result.message?: "Unknown error occurred"
-                      ))
+                      _eventFlow.emit(
+                          UiEvent.ShowSnackBar(
+                              message = result.message ?: "Unknown error occurred"
+                          )
+                      )
                   }
               }
             }.launchIn(this)

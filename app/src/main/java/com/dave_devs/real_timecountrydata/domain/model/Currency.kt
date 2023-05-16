@@ -1,4 +1,4 @@
-package com.dave_devs.real_timecountrydata.data.remote
+package com.dave_devs.real_timecountrydata.domain.model
 
 data class Currency(
     val code: String,

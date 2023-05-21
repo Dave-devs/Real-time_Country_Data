@@ -3,12 +3,16 @@ package com.dave_devs.real_timecountrydata.presentation.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.dave_devs.real_timecountrydata.domain.model.CountryData
 
 @Composable
@@ -17,114 +21,102 @@ fun CountryDataItem(
     countryData: CountryData
 ) {
     Column(modifier) {
+        AsyncImage(
+            model = countryData.flag,
+            contentDescription = null,
+            modifier.size(150.dp)
+                .clip(CircleShape)
+        )
         Text(
             text = countryData.name,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Alpha2Code: ${countryData.alpha2Code}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Alpha3Code: ${countryData.alpha3Code}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Calling Code: ${countryData.callingCodes}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Capital: ${countryData.capital}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Alt Spelling: ${countryData.altSpellings}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Region: ${countryData.region}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Sub-region: ${countryData.subregion}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Population: ${countryData.population}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Latitude/Longitude: ${countryData.latlng}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Demonym: ${countryData.demonym}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Area: ${countryData.area}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Gini: ${countryData.gini}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Timezone: ${countryData.timezones}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Borders: ${countryData.borders.size}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Native name: ${countryData.name}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Numeric code: ${countryData.numericCode}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         Text(
             text = "Currencies: ${countryData.currencies}",
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         countryData.languages.forEach { lang ->
             Text(
                 text = lang.name,
@@ -150,8 +142,6 @@ fun CountryDataItem(
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Spacer(Modifier.height(10.dp))
-        //Translation
         Text(
             text = "Translations: ",
             fontWeight = FontWeight.Bold,
@@ -217,7 +207,6 @@ fun CountryDataItem(
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(10.dp))
         countryData.regionalBlocs.forEach { regionalBloc -> 
             Text(
                 text = regionalBloc.name,
